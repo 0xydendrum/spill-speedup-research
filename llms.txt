@@ -1,0 +1,28 @@
+# spill-speedup-research
+
+> Measurements of what makes llama.cpp faster when a model is bigger than a 12 GB GPU and part of it lives in system RAM. RTX 3060 12 GB, 32 GB DDR4-3200, llama.cpp b11798, 2026-11-14 to 2026-11-17. Author 0xydendrum. Text and data CC BY 4.0.
+
+Key results: confidence cut-off doubles prose speed with a DFlash helper (F1); MTP helper gives 1.50x on Gemma 4 26B-A4B with experts in RAM (F2); MTP at 6 guesses + cut-off gives 2.61x on Gemma 4 31B (F3); many requests at once give 6.2x total throughput (F4); n-gram snapshot memory does not repair a carved model (F5, negative). Quality was checked against the same model fully in VRAM on 450 questions.
+
+## Findings
+- [findings.json](findings.json): all findings as structured data (claim, metric, value, baseline, n, data files, status)
+- [F1 confidence cut-off](findings/F1-confidence-cutoff.md)
+- [F2 MTP on an offloaded MoE](findings/F2-mtp-on-offloaded-moe.md)
+- [F3 guess-count edge](findings/F3-guess-count-edge.md)
+- [F4 many requests at once](findings/F4-many-requests.md)
+- [F5 snapshot memory, negative result](findings/F5-engram-snapshot-negative.md)
+- [F6 smaller measurements](findings/F6-other-measurements.md)
+
+## Data
+- [DATA.md](DATA.md): every column of every file, with units
+- data/speed_setups.csv, data/speed_by_kind.csv: hand-measured setups, four prompt kinds
+- data/spilltune_trials.csv: every spilltune trial on the real GPU
+- data/parallel.csv: throughput vs requests at once
+- data/single_stream.csv: single-chat speed runs
+- data/quality_answers.jsonl, data/quality_summary.csv: graded answers and paired comparisons
+- data/batch_eval_settings.csv: memory-cache and batch settings vs answers
+- data/moe_carve_engram.csv: carving and memory experiments
+
+## How to reproduce
+- [REPRODUCE.md](REPRODUCE.md), scripts in scripts/bench and scripts/carve
+- Tool that applies the results: https://github.com/0xydendrum/spilltune

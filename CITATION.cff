@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use these measurements or data, please cite them as below."
+title: "Speeding up LLMs that don't fit in a 12 GB GPU: measurements"
+authors:
+  - alias: "0xydendrum"
+type: dataset
+date-released: "2026-11-17"
+version: "1.0.0"
+license: CC-BY-4.0
+repository-code: "https://github.com/0xydendrum/spill-speedup-research"
+keywords:
+  - llama.cpp
+  - speculative decoding
+  - mixture of experts
+  - CPU offloading
+  - consumer GPU
+references:
+  - type: software
+    title: spilltune
+    authors:
+      - alias: "0xydendrum"
+    repository-code: "https://github.com/0xydendrum/spilltune"

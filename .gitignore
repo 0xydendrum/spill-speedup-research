@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+results/
+cache/
+scripts/carve/data/
+scripts/carve/cache/
+*.gguf
+*.pt

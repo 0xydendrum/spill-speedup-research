@@ -1,0 +1,36 @@
+experiment,model,config,memory,active_ffn_frac,train_tokens,steps,dense_ppl,ppl,ppl_ratio_vs_dense,router_recall
+carve_training_free,Qwen3.5-2B,shared 0 top2 router,,0.18,,,13.0095,75.344,5.791,0.693
+carve_training_free,Qwen3.5-2B,shared 0 top4 router,,0.234,,,13.0095,53.688,4.127,0.668
+carve_training_free,Qwen3.5-2B,shared 0 top8 router,,0.344,,,13.0095,35.474,2.727,0.686
+carve_training_free,Qwen3.5-2B,shared 0.125 top4 router,,0.234,,,11.8469,48.377,4.084,0.665
+carve_training_free,Qwen3.5-2B,shared 0.125 top4 oracle,,0.234,,,11.8469,38.914,3.285,0.665
+carve_training_free,Qwen3.5-2B,shared 0.125 top8 router,,0.344,,,11.8469,31.908,2.693,0.684
+carve_training_free,Qwen3.5-2B,shared 0.125 top8 oracle,,0.344,,,11.8469,25.447,2.148,0.684
+carve_training_free,Qwen3.5-2B,shared 0.25 top4 router,,0.344,,,11.8469,30.602,2.583,0.668
+carve_training_free,Qwen3.5-2B,shared 0.25 top4 oracle,,0.344,,,11.8469,25.436,2.147,0.668
+carve_training_free,Qwen3.5-2B,shared 0.25 top8 router,,0.438,,,11.8469,23.209,1.959,0.694
+carve_training_free,Qwen3.5-2B,shared 0.25 top8 oracle,,0.438,,,11.8469,19.47,1.643,0.694
+carve_training_free,Qwen3.5-2B,shared 0.375 top4 router,,0.453,,,11.8469,23.025,1.944,0.65
+carve_training_free,Qwen3.5-2B,shared 0.375 top4 oracle,,0.453,,,11.8469,19.741,1.666,0.65
+carve_training_free,Qwen3.5-2B,shared 0.375 top8 router,,0.531,,,11.8469,19.036,1.607,0.684
+carve_training_free,Qwen3.5-2B,shared 0.375 top8 oracle,,0.531,,,11.8469,16.67,1.407,0.684
+neuron_skip_no_carve,Qwen3.5-2B,keep 0.7,,0.8,,,11.8469,12.374,1.044,
+neuron_skip_no_carve,Qwen3.5-2B,keep 0.5,,0.667,,,11.8469,14.418,1.217,
+neuron_skip_no_carve,Qwen3.5-2B,keep 0.4,,0.6,,,11.8469,16.946,1.43,
+neuron_skip_no_carve,Qwen3.5-2B,keep 0.3,,0.533,,,11.8469,21.943,1.852,
+neuron_skip_no_carve,Qwen3.5-2B,keep 0.2,,0.467,,,11.8469,35.628,3.007,
+carve_layerwise_heal,Qwen3.5-2B,shared 0.25 top4,,0.344,,600,11.8495,23.723,2.002,
+carve_layerwise_heal,Qwen3.5-2B,shared 0.125 top4,,0.234,,600,11.8495,30.507,2.575,
+carve_layerwise_heal_sequential,Qwen3.5-2B,shared 0.25 top4,,0.344,65536,2000,11.8495,22.758,1.921,
+carve_whole_model_distill,Qwen3.5-2B,0.25:4,,0.344,131072,1500,11.8495,20.627,1.741,
+engram_snapshot_training_free,Qwen3.5-2B,0.25:4 carve g=1.0,carve,0.344,,,11.8495,30.58,2.581,
+engram_snapshot_training_free,Qwen3.5-2B,0.25:4 bias g=1.0,bias,0.344,,,11.8495,29.916,2.525,
+engram_snapshot_training_free,Qwen3.5-2B,0.25:4 uni g=1.0,uni,0.344,,,11.8495,29.043,2.451,
+engram_snapshot_training_free,Qwen3.5-2B,0.25:4 backoff g=1.0,backoff,0.344,,,11.8495,29.088,2.455,
+engram_snapshot_training_free,Qwen3.5-2B,0.25:4 backoff g=0.5,backoff,0.344,,,11.8495,28.699,2.422,
+engram_snapshot_training_free,Qwen3.5-2B,0.25:4 backoff g=0.75,backoff,0.344,,,11.8495,28.655,2.418,
+carve_distill_plus_memory,Qwen3.5-2B,0.25:4,snapshot,0.344,1048576,1500,11.8495,16.045,1.354,
+carve_distill_plus_memory,Qwen3.5-2B,0.25:4,none,0.344,1048576,1500,11.8495,16.009,1.351,
+carve_distill_plus_memory,Qwen3.5-2B,0.25:4,zero,0.344,1048576,1500,11.8495,16.01,1.351,
+carve_distill_plus_memory,Qwen3.5-2B,0.25:4,none,0.344,2097152,3000,11.8495,15.161,1.279,
+carve_distill_plus_memory,Qwen3.5-2B,0.125:4,none,0.234,1048576,1500,11.8495,17.363,1.465,

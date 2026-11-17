@@ -1,0 +1,40 @@
+source,label,time_est,model,gpu_layers,cuda0_mib,host_mib,prompt_tps,gen_tps,accept_rate,server_args
+side_by_side,g12b-fit,2026-11-14 23:48:10,gemma-4-12b-it-Q4_K_M.gguf,49/49,6776.91,540.00,1005.65,39.5,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on
+side_by_side,g12b-ngl99,2026-11-14 23:48:36,gemma-4-12b-it-Q4_K_M.gguf,49/49,6776.91,540.00,1004.09,39.44,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 99 --fit off
+side_by_side,g31b-fit,2026-11-14 23:48:57,gemma-4-31B-it-Q4_K_M.gguf,31/61,9139.07,9076.75,225.45,3.32,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on
+side_by_side,g31b-ngl99,2026-11-14 23:51:52,gemma-4-31B-it-Q4_K_M.gguf,61/61,17459.85,756.00,55.47,1.55,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 99 --fit off
+speed_v2,g12b-p400,2026-11-14 23:57:48,gemma-4-12b-it-Q4_K_M.gguf,49/49,6776.91,540.00,1040.04,39.86,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on
+speed_v2,g31b-p400,2026-11-14 23:58:40,gemma-4-31B-it-Q4_K_M.gguf,31/61,9139.07,9076.75,229.54,3.34,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on
+speed_v2,g12b-p2000,2026-11-15 00:06:13,gemma-4-12b-it-Q4_K_M.gguf,49/49,6776.91,540.00,1179.36,38.14,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on
+speed_v2,g31b-p2000,2026-11-15 00:07:20,gemma-4-31B-it-Q4_K_M.gguf,31/61,9139.07,9076.75,305.58,3.19,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on
+placement,fit-t6,2026-11-15 19:07:58,gemma-4-31B-it-Q4_K_M.gguf,31/61,9139.07,9076.75,219.39,3.3,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on -t 6
+placement,fit-t8,2026-11-15 19:10:56,gemma-4-31B-it-Q4_K_M.gguf,31/61,9139.07,9076.75,225.63,3.32,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on -t 8
+placement,fit-t12,2026-11-15 19:13:53,gemma-4-31B-it-Q4_K_M.gguf,31/61,9139.07,9076.75,232.09,3.32,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on -t 12
+placement,fit-t14,2026-11-15 19:28:05,gemma-4-31B-it-Q4_K_M.gguf,31/61,9139.07,9076.75,226.26,3.32,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on -t 14
+placement,ot-ffn16,2026-11-15 19:39:54,gemma-4-31B-it-Q4_K_M.gguf,61/61,8705.29,9510.54,224.68,3.14,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 99 -ot blk/.(1[6-9]|[2-5][0-9])/.ffn_(gate|up|down)/.weight=CPU
+placement,ot-ffn20,2026-11-15 19:54:03,gemma-4-31B-it-Q4_K_M.gguf,61/61,9477.90,8737.93,229.87,3.43,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 99 -ot blk/.([2-5][0-9])/.ffn_(gate|up|down)/.weight=CPU
+placement,fit-tgt256,2026-11-15 20:25:33,gemma-4-31B-it-Q4_K_M.gguf,33/61,9682.61,8533.20,238.15,3.53,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on --fit-target 256
+avenues,moe-fit,2026-11-15 20:36:40,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,31/31,9252.10,7643.32,807.38,36.65,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on
+avenues,moe-ncm14,2026-11-15 20:45:59,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,31/31,9794.92,7100.51,880.67,37.17,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 99 --n-cpu-moe 14
+avenues,qwen35-a3b-fit,2026-11-15 20:46:42,Qwen3.5-35B-A3B-UD-IQ4_XS.gguf,41/41,9737.13,6928.51,794.45,47.35,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on
+avenues,moe-ncm18,2026-11-15 20:47:28,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,31/31,7979.91,8915.51,761.44,34.55,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 99 --n-cpu-moe 18
+avenues,iq3-fit,2026-11-16 00:40:05,gemma-4-31B-it-UD-IQ3_XXS.gguf,47/61,8795.26,3056.56,306.12,8.51,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on
+spec,s2-e2b-n8,2026-11-15 19:32:54,gemma-4-31B-it-Q4_K_M.gguf,,,,,2.72,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 22 -md gemma-4-E2B-it-Q3_K_M.gguf -ngld 99 --spec-draft-n-max 8
+spec,s0-fit,2026-11-15 21:14:41,gemma-4-31B-it-Q4_K_M.gguf,,,,,3.4,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on
+spec,mtp-n2,2026-11-15 21:21:43,gemma-4-31B-it-Q4_K_M.gguf,,,,,7.78,0.914,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 27 -md mtp-gemma-4-31B-it.gguf -ngld 99 --spec-type draft-mtp --spec-draft-n-max 2
+spec,mtp-n4,2026-11-15 21:24:56,gemma-4-31B-it-Q4_K_M.gguf,,,,,10.38,0.838,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 27 -md mtp-gemma-4-31B-it.gguf -ngld 99 --spec-type draft-mtp --spec-draft-n-max 4
+spec,mtp-n4-stream,2026-11-15 21:44:59,gemma-4-31B-it-Q4_K_M.gguf,,,,,7.8,0.82,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 27 -md mtp-gemma-4-31B-it.gguf -ngld 99 --spec-type draft-mtp --spec-draft-n-max 4
+spec,dflash-n8,2026-11-15 21:58:46,gemma-4-31B-it-Q4_K_M.gguf,,,,,6.79,0.553,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 26 -md gemma4-31b-it-dflash-Q4_K_M.gguf -ngld 99 --spec-type draft-dflash --spec-draft-n-max 8
+spec,dflash-n16-stream,2026-11-15 22:37:11,gemma-4-31B-it-Q4_K_M.gguf,,,,,10.92,0.359,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 26 -md gemma4-31b-it-dflash-Q4_K_M.gguf -ngld 99 --spec-type draft-dflash --spec-draft-n-max 16
+spec,eagle3-n4,2026-11-15 22:54:14,gemma-4-31B-it-Q4_K_M.gguf,,,,,7.57,0.548,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 25 -md gemma-4-31B-it-speculator.eagle3-Q4_K_M.gguf -ngld 99 --spec-type draft-eagle3 --spec-draft-n-max 4
+spec,e2b-n4,2026-11-16 00:13:27,gemma-4-31B-it-Q4_K_M.gguf,,,,,2.72,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 21 -md gemma-4-E2B-it-Q3_K_M.gguf -ngld 99 --spec-draft-n-max 4
+spec,ngram,2026-11-16 00:36:38,gemma-4-31B-it-Q4_K_M.gguf,,,,,3.39,0.027,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 --fit on --spec-type ngram-simple
+spec,iq3-mtp-n4,2026-11-16 10:47:53,gemma-4-31B-it-UD-IQ3_XXS.gguf,,,,,9.85,0.815,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 44 -md mtp-gemma-4-31B-it.gguf -ngld 99 --spec-type draft-mtp --spec-draft-n-max 4
+spec,iq3-dflash-n16-stream,2026-11-16 10:49:19,gemma-4-31B-it-UD-IQ3_XXS.gguf,,,,,17.85,0.288,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 42 -md gemma4-31b-it-dflash-Q4_K_M.gguf -ngld 99 --spec-type draft-dflash --spec-draft-n-max 16
+spec,mtp-n3,2026-11-16 10:50:07,gemma-4-31B-it-Q4_K_M.gguf,,,,,9.44,0.845,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 27 -md mtp-gemma-4-31B-it.gguf -ngld 99 --spec-type draft-mtp --spec-draft-n-max 3
+spec,mtp-n6,2026-11-16 10:51:44,gemma-4-31B-it-Q4_K_M.gguf,,,,,11.96,0.764,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 27 -md mtp-gemma-4-31B-it.gguf -ngld 99 --spec-type draft-mtp --spec-draft-n-max 6
+spec,dflash-n12-stream,2026-11-16 10:53:09,gemma-4-31B-it-Q4_K_M.gguf,,,,,10.42,0.424,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 26 -md gemma4-31b-it-dflash-Q4_K_M.gguf -ngld 99 --spec-type draft-dflash --spec-draft-n-max 12
+spec,dflash-n24-stream,2026-11-16 10:54:41,gemma-4-31B-it-Q4_K_M.gguf,,,,,11.06,0.359,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 26 -md gemma4-31b-it-dflash-Q4_K_M.gguf -ngld 99 --spec-type draft-dflash --spec-draft-n-max 24
+spec,moe-s0,2026-11-16 10:56:10,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,,,,,35.02,,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 99 --n-cpu-moe 18
+spec,moe-dflash-n8,2026-11-16 10:56:53,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,,,,,55.82,0.494,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 99 --n-cpu-moe 18 -md gemma4-26b-a4b-it-dflash-Q4_K_M.gguf -ngld 99 --spec-type draft-dflash --spec-draft-n-max 8
+spec,moe-dflash-n16,2026-11-16 10:57:29,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,,,,,38.25,0.254,-c 4096 -np 1 --cache-ram 0 --load-mode none --no-webui -lv 4 -ngl 99 --n-cpu-moe 18 -md gemma4-26b-a4b-it-dflash-Q4_K_M.gguf -ngld 99 --spec-type draft-dflash --spec-draft-n-max 16
