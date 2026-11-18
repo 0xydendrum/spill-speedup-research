@@ -1,9 +1,9 @@
 {
   "repo": "spill-speedup-research",
   "author": "0xydendrum",
-  "collected": "2026-11-14 to 2026-11-17 (EST)",
+  "collected": "2026-11-14 to 2026-11-18 (EST)",
   "hardware": "NVIDIA RTX 3060 12 GB, Intel i5-14600KF, 32 GB DDR4-3200, Windows 11; quality reference NVIDIA RTX A6000 48 GB",
-  "software": "llama.cpp b11798 (commit ec0da70e9); spilltune 0.2.0; PyTorch/transformers for F5",
+  "software": "llama.cpp b11798 (commit ec0da70e9); spilltune 0.2.0; PyTorch/transformers 5.5.0 for F5 and F7",
   "speed_test": "spilltune's 4 prompts (math, code, explain, writing) x 192 tokens, temperature 0, 1 chat at a time, context 4096; overall = total tokens / total time",
   "quality_test": "300 MMLU-Pro + 150 GSM8K test questions, fixed seed, temperature 0; paired difference vs same GGUF fully in VRAM; no loss = diff + margin >= 0",
   "findings": [
@@ -102,6 +102,22 @@
       "data_file": ["data/speed_setups.csv", "data/single_stream.csv", "data/quality_summary.csv", "data/spilltune_trials.csv"],
       "labels": ["thr-*", "ctx*", "g31b-ngl99", "g31b-fit", "ot-ffn*", "ngram", "e2b-n4", "iq3-fit"],
       "status": "measured"
+    },
+    {
+      "id": "F7",
+      "file": "findings/F7-engram-forward-filled-negative.md",
+      "claim": "Negative result: a forward-filled (training-free) Engram-style n-gram table predicts at most 2.73% of the hidden-state gap a healed dense-to-MoE carve of Qwen3.5-2B leaves, even with canonical keys, layer 0 and a learned context gate + value projection, and closes 0.43% of the perplexity gap (bars 5% and 5 pp).",
+      "metric": "held-out WikiText-2 R² of the carve's hidden-state gap (rank-128 code, full-width error)",
+      "value": 0.0273,
+      "unit": "R² (fraction)",
+      "baseline": 0.0,
+      "baseline_desc": "no memory (R² 0); preregistered bar 0.05; A0 (raw keys, probes 3-23) 0.0085",
+      "other_values": {"G_wiki_pp_best_learned": 0.429, "G_c4_pp_best_learned": 2.22, "r2_c4_best_learned": 0.0949, "r2_wiki_canon_l0_ungated_a0b": 0.0218, "oracle_gate_excess_wiki_a0b": 0.0315, "a0_oracle_table_G_wiki_pp": 11.25, "plant_recovery": [0.842, 0.853], "canonical_id_reduction": 0.2183, "ppl_dense_wiki": 13.27, "ppl_healed_wiki": 28.5},
+      "n": "65,536 held-out tokens per eval set; 95% CI by block bootstrap over 64 sequences; single seed",
+      "model": "Qwen3.5-2B (HF rev 15852e8)",
+      "data_file": ["data/engram_v2_r2.csv", "data/engram_v2_gap.csv"],
+      "labels": ["A0", "A0b-plant", "A0b-gate", "A0b-a100", "A0c"],
+      "status": "measured (negative, preregistered)"
     }
   ]
 }

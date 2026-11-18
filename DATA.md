@@ -151,3 +151,30 @@ Gemma 4 26B-A4B, 16 slots, context 20480 unless noted, the same 80 questions sen
 | ppl | WikiText-2 perplexity | - |
 | ppl_ratio_vs_dense | ppl / dense_ppl | ratio |
 | router_recall | Share of the truly most active experts the router picked | fraction |
+
+## data/engram_v2_r2.csv: forward-filled memory, how much of the carve's gap the table predicts (F7)
+
+One row per run x eval set x keyset x layer x readout x gate x kind. R² of d_L = h_dense(L) - h_healed(L) (rank-128 code,
+out-of-basis energy counted as error), pooled over 65,536 held-out tokens.
+
+| Column | Meaning | Unit |
+|---|---|---|
+| run | `A0` (raw keys, probes 3-23), `A0b-plant` (planted-signal control), `A0b-gate` (local screen, bits 18), `A0b-a100` (layers 0-7, bits 19), `A0c` (learned gates) | - |
+| fill_tokens | FineWeb tokens filled into the table (A0c: tokens 0-18M; its gates trained on 18M-20M) | tokens |
+| bits | log2 buckets per hashed table (2 heads per order) | - |
+| eval | `wiki` (WikiText-2 test, decides) or `c4` (C4 en validation, reported) | - |
+| keyset | `raw` token IDs or `canon` (NFKC + lowercase + strip; 193,925 of 248,077 IDs) | - |
+| layer, layer_type | Probe layer (0-based) and its token mixer (`linear_attention` = Gated DeltaNet, `full_attention`) | - |
+| column | `backoff` (3->2->1, shrinkage 8), `aread` (mean of head bucket means), `router` (healed router's top-2 experts) | - |
+| gate | `ungated`; oracle `gateclip` / `gateproj` (per-position alpha in [0,1] / unrestricted); `learned_gate`, `learned_gatewv` (A0c) | - |
+| kind | `real`, `decoy` (shuffled keys), `planted_real` / `planted_decoy` (A0b-plant) | - |
+| r2, r2_lo, r2_hi | R² and its 95% block-bootstrap interval (empty for A0) | fraction |
+
+## data/engram_v2_gap.csv: forward-filled memory, perplexity gap closed by injecting the prediction (F7)
+
+| Column | Meaning | Unit |
+|---|---|---|
+| run, eval, keyset, layer, column, gate | The arm injected (best held-out wiki arm of that run) | - |
+| ppl_dense, ppl_healed, ppl_injected | Perplexity of the dense model, the healed carve, and the healed carve + mu + U c_hat added at that layer | - |
+| G_pp | 100 x (ppl_healed - ppl_injected) / (ppl_healed - ppl_dense) | percentage points |
+| ppl_oracle, G_oracle_pp | A0 only: table filled on the eval text itself (a ceiling, not a deployable result) | -, pp |

@@ -2,7 +2,7 @@
 
 Measurements of what makes llama.cpp faster when a model is bigger than the GPU and part of it has to live in system
 RAM ("spilled"). One consumer PC, five models, every number backed by a data file in `data/`.
-Collected 2026-11-14 to 2026-11-17 (EST) by 0xydendrum. The tool that applies these results automatically is
+Collected 2026-11-14 to 2026-11-18 (EST) by 0xydendrum. The tool that applies these results automatically is
 [spilltune](https://github.com/0xydendrum/spilltune).
 
 ## TL;DR
@@ -23,6 +23,10 @@ Collected 2026-11-14 to 2026-11-17 (EST) by 0xydendrum. The tool that applies th
 5. **Negative result: an n-gram snapshot memory does not repair a dense model carved into experts.** Qwen3.5-2B
    carved to 34% active: after distillation, perplexity 16.05 with the memory vs 16.01 without (dense 11.85).
    [F5](findings/F5-engram-snapshot-negative.md), data `data/moe_carve_engram.csv`.
+6. **Negative result: a forward-filled Engram-style memory cannot repair the healed carve either.** Best case
+   (canonical token keys, layer 0, learned context gate + value projection): it predicts 2.73% of the hidden-state gap
+   on held-out WikiText-2 and closes 0.43% of the perplexity gap (bars 5% and 5 pp; three preregistered tests).
+   [F7](findings/F7-engram-forward-filled-negative.md), data `data/engram_v2_r2.csv`, `data/engram_v2_gap.csv`.
 
 Also measured (threads, context length, driver spill, other helpers, a smaller quant): [F6](findings/F6-other-measurements.md).
 
@@ -39,7 +43,7 @@ Models (GGUF): `gemma-4-31B-it-Q4_K_M` (17.1 GB, dense, 60 layers), `gemma-4-26B
 experts), `Qwen3.5-35B-A3B-UD-IQ4_XS`, `Qwen3.8-27B-UD-Q4_K_M`, `gemma-4-12b-it-Q4_K_M` (control, fits in VRAM),
 `gemma-4-31B-it-UD-IQ3_XXS` (smaller-file comparison). Helpers: `mtp-gemma-4-31B-it`, `mtp-gemma-4-26B-A4B-it`,
 `gemma4-31b-it-dflash-Q4_K_M`, `gemma4-26b-a4b-it-dflash-Q4_K_M`, `gemma-4-31B-it-speculator.eagle3-Q4_K_M`.
-Carving experiments (F5): Qwen3.5-2B in PyTorch / transformers, bf16.
+Carving experiments (F5, F7): Qwen3.5-2B in PyTorch / transformers, bf16; F7 also on rented A6000/A100 GPUs.
 
 How things were measured:
 - **Speed** = spilltune's four prompts (math, code, an explanation, a story), 192 generated tokens each, temperature 0,

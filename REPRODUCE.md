@@ -71,3 +71,22 @@ python scripts/carve/distill_engram.py --model path/to/Qwen3.5-2B --memory snaps
 
 A 12 GB GPU is enough for the 2B model. With a 248K-token vocabulary, evaluation logits dominate memory: use small
 eval batches.
+
+## Forward-filled memory (F7)
+
+Needs the healed carve from `heal_proto.py` (`cache/healed-Qwen3.5-2B-0.25k4.pt`). Data first (FineWeb sample-10BT,
+C4 validation, WikiText-2 test, PopQA), tokenized with the Qwen3.5 tokenizer:
+
+```
+QWEN35_2B=path/to/Qwen3.5-2B python scripts/carve/prep_engram_data.py
+python scripts/carve/engram_diag.py   --model path/to/Qwen3.5-2B                                  # A0
+python scripts/carve/engram_diag_b.py --model path/to/Qwen3.5-2B --stage plant --layers 2 --fill-tokens 1000000 --out plant.jsonl
+python scripts/carve/engram_diag_b.py --model path/to/Qwen3.5-2B --stage gate --layers 0,1,2,3 --bits 18 --plant-result plant.jsonl --out gate.jsonl
+python scripts/carve/engram_diag_b.py --model path/to/Qwen3.5-2B --stage pod --layers 0,1,2,3,4,5,6,7 --bits 19 --out a0b.jsonl   # 48 GB+ GPU
+python scripts/carve/engram_gate_c.py --model path/to/Qwen3.5-2B --out a0c.jsonl                     # A0c, fits 12 GB
+python scripts/carve/run_manifest.py  --model path/to/Qwen3.5-2B --out manifest.json                 # fingerprint a run
+```
+
+The local stages fit the RTX 3060 (`--stage gate` moves layers after the last probe to CPU; peak 9 GB). The full A0b
+run with layers 0-7 at bits 19 used 27.6 GB on an A100 (25,800 tokens/s, 15 min). Quick checks: `--smoke` on
+`engram_diag.py`, `engram_gate_c.py` and `prep_engram_data.py`; `--stage smoke [--smoke-ppl]` on `engram_diag_b.py`.

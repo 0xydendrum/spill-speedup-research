@@ -1,0 +1,9 @@
+run,eval,keyset,layer,column,gate,ppl_dense,ppl_healed,ppl_injected,G_pp,ppl_oracle,G_oracle_pp
+A0,wiki,raw,3,aread,ungated,13.268,28.5015,28.4346,0.439,26.7871,11.254
+A0,c4,raw,3,aread,ungated,19.2657,55.3852,53.2922,5.795,48.8804,18.009
+A0b-a100,wiki,canon,0,aread,ungated,13.2675,28.5054,28.466,0.259,,
+A0b-a100,c4,canon,0,aread,ungated,19.2654,55.3663,54.7125,1.811,,
+A0c,wiki,canon,0,aread,learned_gatewv,13.2705,28.5009,28.4356,0.429,,
+A0c,wiki,canon,0,aread,ungated,13.2705,28.5009,28.4533,0.313,,
+A0c,c4,canon,0,aread,learned_gatewv,19.2657,55.3954,54.5934,2.22,,
+A0c,c4,canon,0,aread,ungated,19.2657,55.3954,54.7553,1.772,,
